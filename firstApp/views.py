@@ -9,7 +9,24 @@ from rest_framework.views import APIView
 from rest_framework import status
 from firstApp.serializers import StudentSerializer,AuthorSerializer,BookSerializer
 from rest_framework import generics, mixins, viewsets
+from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    
+class StudentPagination(LimitOffsetPagination):
+    page_size = 2
+    
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    
+    
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 # Create your views here.
 def employeeView(request):
@@ -137,16 +154,3 @@ class StudentDetail(APIView):
 #     serializer_class = StudentSerializer
 
 
-class StudentViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-    
-    
-    
-class AuthorViewSet(viewsets.ModelViewSet):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    
-class BookViewSet(viewsets.ModelViewSet):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
