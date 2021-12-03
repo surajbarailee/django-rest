@@ -2,7 +2,7 @@ from django.db.models import query
 from django.shortcuts import render
 from django.http import JsonResponse
 from firstApp.models import Employee, Student,Author,Book
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -13,6 +13,14 @@ from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated,DjangoModelPermissions
+
+
+
+
+
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
@@ -27,6 +35,8 @@ class StudentPagination(LimitOffsetPagination):
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes=[IsAuthenticated,DjangoModelPermissions]
     
     
 class BookViewSet(viewsets.ModelViewSet):
