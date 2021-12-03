@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 
 from rest_framework import status
 from firstApp.serializers import StudentSerializer
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, viewsets
 
 
 # Create your views here.
@@ -128,10 +128,15 @@ class StudentDetail(APIView):
 
 
 
-class StudentList(generics.ListCreateAPIView):
-    queryqueryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# class StudentList(generics.ListCreateAPIView):
+#     queryqueryset = Student.objects.all()
+#     serializer_class = StudentSerializer
     
-class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+# class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+
+class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
