@@ -1,3 +1,4 @@
+from django.db.models import query
 from django.shortcuts import render
 from django.http import JsonResponse
 from firstApp.models import Employee, Student
@@ -7,6 +8,7 @@ from rest_framework.views import APIView
 
 from rest_framework import status
 from firstApp.serializers import StudentSerializer
+from rest_framework import generics, mixins
 
 
 # Create your views here.
@@ -16,6 +18,29 @@ def employeeView(request):
     return JsonResponse(response)
 
 
+# class StudentList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+
+# class StudentDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+
+#     def put(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
 
 
 # @api_view(['GET','POST'])
@@ -56,6 +81,8 @@ def employeeView(request):
 #         return Response(status=status.HTTP_204_NO_CONTENT)
     
     
+"""
+
     
 class StudentList(APIView):
     def get(self, request):
@@ -71,6 +98,7 @@ class StudentList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class StudentDetail(APIView):
+    
     def get_object(self, pk):
         try:
             return Student.objects.get(pk=pk)
@@ -94,3 +122,16 @@ class StudentDetail(APIView):
         student = self.get_object(pk)
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        
+"""
+
+
+
+class StudentList(generics.ListCreateAPIView):
+    queryqueryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    
+class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
