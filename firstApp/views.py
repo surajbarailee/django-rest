@@ -1,13 +1,13 @@
 from django.db.models import query
 from django.shortcuts import render
 from django.http import JsonResponse
-from firstApp.models import Employee, Student
+from firstApp.models import Employee, Student,Author,Book
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from rest_framework import status
-from firstApp.serializers import StudentSerializer
+from firstApp.serializers import StudentSerializer,AuthorSerializer,BookSerializer
 from rest_framework import generics, mixins, viewsets
 
 
@@ -140,3 +140,13 @@ class StudentDetail(APIView):
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    
+    
+    
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
