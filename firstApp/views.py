@@ -11,13 +11,18 @@ from firstApp.serializers import StudentSerializer,AuthorSerializer,BookSerializ
 from rest_framework import generics, mixins, viewsets
 from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    pagination_class = LimitOffsetPagination
+    filter_backends = [DjangoFilterBackend]
+    ordering_fields =  ['name','score']
     
 class StudentPagination(LimitOffsetPagination):
-    page_size = 2
+    page_size = 5
     
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
