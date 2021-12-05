@@ -5,5 +5,5 @@ from firstApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('firstApp/',include('firstApp.urls')),
+    path('api/',include('firstApp.urls')),
 ]

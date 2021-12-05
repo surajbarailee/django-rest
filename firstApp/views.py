@@ -28,6 +28,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
     filter_backends = [DjangoFilterBackend]
     ordering_fields =  ['name','score']
+    permission_classes = [IsAuthenticated]
     
 class StudentPagination(LimitOffsetPagination):
     page_size = 5
